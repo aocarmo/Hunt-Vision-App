@@ -1,0 +1,58 @@
+<!--
+  Generated template for the AlterarSenhaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>Alterar Senha</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-card no-margin margin-bottom class="full-width">
+        <ion-card-content>
+            <ion-card-title align="center" color="primary" class="titlePage">Insira as informações abaixo</ion-card-title>
+            <hr>
+      <!-- Login -->
+      <form  [formGroup]="alterarSenhaForm" class="list-form">
+        <ion-item>
+          <ion-label floating color="black">            
+            Senha atual
+          </ion-label>
+          <ion-input  style="color:black;"  type="{{type}}" value="" formControlName="senhaAtual"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" class="text-1x has-error" *ngIf="alterarSenhaForm.get('senhaAtual').touched && alterarSenhaForm.get('senhaAtual').hasError('required')">Favor preencher este campo</p>
+  
+        <ion-item>
+          <ion-label floating color="black">            
+            Nova senha
+          </ion-label>
+          <ion-input style="color:black;" type="{{type}}" value="" formControlName="novaSenha"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" class="text-1x has-error" *ngIf="alterarSenhaForm.get('novaSenha').touched && alterarSenhaForm.get('novaSenha').hasError('required')">Favor preencher este campo</p>
+        <p ion-text color="danger" class="text-1x has-error" *ngIf="alterarSenhaForm.get('novaSenha').touched && alterarSenhaForm.get('novaSenha').value != alterarSenhaForm.get('reSenha').value">As senhas não conferem</p>
+        <ion-item>
+
+        <ion-label  floating color="black">            
+            Confirma a senha
+          </ion-label>
+          <ion-input  style="color:black;"  type="{{type}}" value="" formControlName="reSenha"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" class="text-1x has-error" *ngIf="alterarSenhaForm.get('reSenha').touched && alterarSenhaForm.get('reSenha').hasError('required')">Favor preencher este campo</p>
+        <p ion-text color="danger" class="text-1x has-error" *ngIf="alterarSenhaForm.get('reSenha').touched && alterarSenhaForm.get('reSenha').value != alterarSenhaForm.get('novaSenha').value">As senhas não conferem</p>
+
+      </form>
+
+      <button *ngIf="!showPass" style="font-size: 200%;" ion-button block clear color="dark" type="button"  (click)="showPassword()"> <ion-icon name="ios-eye-off-outline"></ion-icon></button>
+      <button *ngIf="showPass" style="font-size: 200%;"  ion-button block clear color="dark" type="button"  (click)="showPassword()"> <ion-icon name="ios-eye-outline"></ion-icon></button>
+          <button   [disabled]="!alterarSenhaForm.valid || alterarSenhaForm.get('novaSenha').value != alterarSenhaForm.get('reSenha').value || alterarSenhaForm.get('reSenha').value != alterarSenhaForm.get('novaSenha').value"  color="secondary" ion-button block (click)="alterarSenha()">Alterar</button>
+      </ion-card-content>
+      </ion-card>
+</ion-content>

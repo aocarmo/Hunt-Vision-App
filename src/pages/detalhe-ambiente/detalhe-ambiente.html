@@ -1,0 +1,58 @@
+<!--
+  Generated template for the DetalheAmbientePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title *ngIf="cliente != null">{{cliente.name}}</ion-title>
+    <ion-title *ngIf="cliente == null">{{vistoria.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card no-margin margin-bottom class="full-width">
+
+    <ion-card-content>
+      <ion-card-title color="primary" align="left" color="primary" style="font-size:20px;">
+        {{ambiente.Objetos.length}} Itens
+      </ion-card-title>
+      <hr>
+      <ion-card *ngFor="let objeto of ambiente.Objetos" (click)="AbrirObjeto(objeto)">
+        <ion-item text-wrap style="background-color:#edf2f4;">
+          <h2>{{objeto.name}}</h2>
+          <p><b>Nº Patrimônio: </b>{{objeto.num}}</p>
+          <p><b>Ambiente: </b>{{ambiente.Nome}}</p>
+          <!--  <p><b>Endereço: </b>{{objeto.address}}</p>  -->
+        </ion-item>
+        <ion-row>
+          <ion-col></ion-col>       
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon class="fa-image"></ion-icon>
+              <div style="color: #D25516;">{{objeto.qtdFotos}}</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon class="fa-list-ul"></ion-icon>
+              <div style="color: #D25516;">{{objeto.qtdRespostas}}/{{objeto.questions.length}}</div>
+            </button>
+          </ion-col>
+          <ion-col aling="left">
+              <button *ngIf="objeto.qtdRespostas == objeto.questions.length" ion-button icon-start clear small>
+                <ion-icon  style="color: #33CD5F;" class="fa-check-circle"></ion-icon>
+           
+              </button>
+            </ion-col>
+        </ion-row>
+
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

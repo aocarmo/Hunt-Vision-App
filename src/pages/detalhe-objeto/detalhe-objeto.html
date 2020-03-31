@@ -1,0 +1,76 @@
+<!--
+  Generated template for the DetalheObjetoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="langForm">
+    <ion-card *ngFor="let pergunta of perguntas">
+
+      <ion-item text-wrap style="background-color:#edf2f4;">
+        <h2 style=" color: black;">{{pergunta.text}}</h2>
+      </ion-item>
+      <ion-list *ngIf="pergunta.type!='numeric' && pergunta.type!='textual'" radio-group  [ngModel]="opcoes"
+        [formControlName]="pergunta.id">
+        <ion-item *ngFor="let options of pergunta.options; let i = index">
+          <ion-label>{{options.text}}</ion-label>
+          <ion-radio name="pergunta.id"  [checked] ="pergunta.answer != null && pergunta.answer.optionsValue[i] == true" (ionSelect)="verficarConformidade(options.infoIfNotConformant, pergunta.id)" id="options.text"  [value]="options.text"></ion-radio>
+                     
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="pergunta.type  == 'numeric'">
+        <ion-item *ngFor="let options of pergunta.options">
+          <ion-label floating>{{options.text}}</ion-label>
+          <ion-input type="tel" id="options.text"  [value] = "pergunta.answer != null ? pergunta.answer.numericValue : ''"  [formControlName]="pergunta.id"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="pergunta.type  == 'textual'">
+        <ion-item>
+            <ion-input type="text" placeholder="Resposta" [value] = "pergunta.answer != null ? pergunta.answer.textualValue : ''" [formControlName]="pergunta.id"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-item *ngFor="let msg of mensagensNaoConforme">
+        <p ion-text color="danger" *ngIf="msg.id == pergunta.id" class="text-1x">{{msg.msg}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Observação</ion-label>
+        <ion-textarea style=" color: black;" placeholder="" [value] = "pergunta.answer != null ? pergunta.answer.obs : ''" [formControlName]="pergunta.id+'_obs'"></ion-textarea>
+      </ion-item>
+      <p ion-text color="danger" class="text-1x has-error"
+        *ngIf="langForm.get(pergunta.id+'_obs').touched && langForm.get(pergunta.id+'_obs').hasError('required')">Favor
+        preencher este campo</p>
+      <ion-item >
+        <ion-grid>
+          <ion-row wrap>
+            <ion-col col-3 *ngFor="let foto  of pergunta.fotosExibir" (tap)="abrirImagem(foto.fotoExibir)">
+              <ion-thumbnail (press)="removerFoto($event,foto, pergunta.id)">
+                <img  [src]="foto.fotoExibir">
+              </ion-thumbnail>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      
+      <button ion-button icon-start block outline color="primary" (click)="tirarFoto(pergunta.id)" tappable>
+        <ion-icon style="font-size: 20px" class="fa-camera"></ion-icon>
+      </button>
+
+    </ion-card>
+    <button ion-button icon-start full color="secondary" (click)="verificarFotosObrigatorias($event)"
+      [disabled]="!langForm.valid" tappable>Salvar</button>
+  </form>
+
+
+</ion-content>

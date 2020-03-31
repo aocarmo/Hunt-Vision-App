@@ -1,0 +1,43 @@
+<!-- -->
+<ion-content padding class="animated fadeIn login auth-page">
+  <div class="login-content">
+
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo"></div>
+      <h2 ion-text class="text-primary">
+        <span style="color:#373736"><strong>Hunt</strong></span>Vision 
+      </h2>
+    </div>
+
+    <!-- Login form -->
+    <form  [formGroup]="onLoginForm" class="list-form">
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="person" item-start class="text-primary"></ion-icon>
+          Usuário
+        </ion-label>
+        <ion-input  autocapitalize="none" type="text" value=""  formControlName="usuario"></ion-input>
+      </ion-item>
+      <p ion-text color="danger" class="text-1x has-error" *ngIf="onLoginForm.get('usuario').touched && onLoginForm.get('usuario').hasError('required')">Favor preencher este campo</p>
+
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+          Senha
+        </ion-label>
+        <ion-input type="password" value=""  formControlName="senha"></ion-input>       
+      </ion-item>
+      <p ion-text color="danger" class="text-1x has-error" *ngIf="onLoginForm.get('senha').touched && onLoginForm.get('senha').hasError('required')">Favor preencher este campo</p>
+    
+    </form>
+    <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Esqueceu a senha?</strong></p>  
+
+    <div>
+      <button ion-button icon-start block color="primary" tappable (click)="login()" [disabled]="!onLoginForm.valid">
+        <ion-icon name="log-in"></ion-icon>
+        ENTRAR
+      </button>
+    </div>
+  </div>
+</ion-content>

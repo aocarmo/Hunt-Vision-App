@@ -1,0 +1,102 @@
+<!-- -->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <strong>Início</strong>
+    </ion-title>
+    <ion-buttons end> 
+        <ion-badge color="secondary">{{qtdRespostasOff}}</ion-badge>  
+      <button ion-button (click)="sincronizarRespostasOffline()"> 
+            <ion-icon style="font-size: 28px" name="md-sync"></ion-icon>          
+        </button>      
+     </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="animated fadeIn common-bg home-bg">
+  <!--<ion-card no-margin margin-bottom class="full-width">
+    <ion-searchbar placeholder="Procurar Clientes" [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
+  </ion-card> -->
+  
+  <ion-card no-margin margin-bottom class="full-width">
+    <ion-item>
+      <ion-label>Buscar Clientes</ion-label>
+      <ionic-selectable
+        item-content 
+        [(ngModel)]="port"
+        [items]="ports"
+        itemValueField="id"
+        itemTextField="name"
+        [canSearch]="true"
+        (onChange)="portChange($event)"
+        closeButtonText="Fechar"
+        searchPlaceholder="Procurar"
+        headerColor="primary">
+        <ng-template ionicSelectableSearchFailTemplate>
+          <div padding>
+             Nenhum item encontrado.
+          </div>
+      </ng-template>
+      </ionic-selectable>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="vistoriasAgendadas.length > 0" no-margin margin-bottom class="full-width">
+   
+      <ion-card-content>
+        <ion-card-title align="center" color="primary" class="titlePage">
+        Hoje - {{dataAtual}}
+        </ion-card-title>
+        <hr>
+        <ion-item tappable (click)="AbrirVistorias('Agendadas')" class="border-bottom">
+          <ion-icon class="fa-list-alt" color="primary" item-left></ion-icon>
+          <span style="color: #2A82B4;">Agendadas</span>
+          <ion-badge color="secondary" id="cart-badge">{{vistoriasAgendadas.length}}</ion-badge>
+        </ion-item>   
+      </ion-card-content>
+    </ion-card>  
+
+    
+  <ion-card *ngIf="cliente" no-margin margin-bottom class="full-width">
+    <img style="height: 180px;"  *ngIf="cliente.logo == null" src="assets/img/sem_imagem.jpg" />
+    <img style="height: 180px;"  *ngIf="cliente.logo != null" [src]="cliente.logo.url" />
+    <ion-card-content>
+      <ion-card-title align="center" color="primary" class="titlePage">
+      {{cliente.name}}
+      </ion-card-title>
+      <hr>
+      <ion-item tappable (click)="AbrirVistorias('Pendentes')" class="border-bottom">
+        <ion-icon class="fa-list-alt" color="primary" item-left></ion-icon>
+        <span style="color: #2A82B4;">Pendentes</span>
+        <ion-badge color="secondary" id="cart-badge">{{vistoriasPendentes.length}}</ion-badge>
+      </ion-item>
+     <!-- <ion-item tappable (click)="AbrirVistorias('Agendadas')" class="border-bottom">
+        <ion-icon class="fa-list-alt" color="primary" item-left></ion-icon>
+        <span style="color: #2A82B4;">Agendadas</span>
+        <ion-badge color="secondary" id="cart-badge">{{vistoriasAgendadas.length}}</ion-badge>
+      </ion-item>    -->
+      <ion-item tappable (click)="AbrirVistoriasConcluidas('Concluídas')" class="border-bottom">
+        <ion-icon class="fa-list-alt" color="primary" item-left></ion-icon>
+        <span style="color: #2A82B4;">Concluídas</span>
+        <ion-badge color="secondary" id="cart-badge">{{vistoriasConcluidas.length}}</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>  
+
+
+</ion-content>
+
+<ion-footer >
+  <ion-toolbar color="primary">
+    <ion-buttons align="center">     
+    <button ion-button (click)="lerQrCode()"> 
+          <ion-icon style="font-size: 35px" class="fa-qrcode"></ion-icon>          
+      </button>      
+   </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
